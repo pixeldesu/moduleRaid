@@ -13,7 +13,9 @@ $ npm install moduleraid
 Or if you directly want to use it in the browser
 
 ```html
-<script src="https://unpkg.com/moduleraid@2.0.0/moduleraid.js"></script>
+<script src="https://unpkg.com/moduleraid@2.0.1/moduleraid.js"></script>
+<!-- minified -->
+<script src="https://unpkg.com/moduleraid@2.0.1/moduleraid.min.js"></script>
 ```
 
 Alternatively, just copy the script from `moduleraid.js` and run it in a devtool console
