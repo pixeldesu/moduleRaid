@@ -1,0 +1,25 @@
+{
+  "name": "moduleraid",
+  "version": "1.0.0",
+  "description": "Get modules from webpackJsonp",
+  "main": "moduleraid.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pixeldesu/moduleRaid.git"
+  },
+  "keywords": [
+    "webpack",
+    "module",
+    "research",
+    "extraction"
+  ],
+  "author": "Andreas Nedbal <andy@pixelde.su>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/pixeldesu/moduleRaid/issues"
+  },
+  "homepage": "https://github.com/pixeldesu/moduleRaid#readme"
+}
