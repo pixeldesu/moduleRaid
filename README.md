@@ -13,7 +13,7 @@ $ npm install moduleraid
 Or if you directly want to use it in the browser
 
 ```html
-<script src="https://unpkg.com/moduleraid@1.0.0/moduleraid.js"></script>
+<script src="https://unpkg.com/moduleraid@2.0.0/moduleraid.js"></script>
 ```
 
 Alternatively, just copy the script from `moduleraid.js` and run it in a devtool console
@@ -61,7 +61,7 @@ on `undefined`), and now we have all modules (_or most of them_)!
 
 ## Known Issues
 
-* It crashes if `webpackJsonp` is not existing
+* Doesn't work with Webpack 3
 * There seem to be a lot of empty modules, I'm not sure if these are _padding_ or something is missing here
 
 ## License
