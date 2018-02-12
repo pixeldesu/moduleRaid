@@ -7,68 +7,71 @@
  */
 
 const moduleRaid = function () {
-  mArr = [];
+  moduleRaid.mObj = {};
 
-  getWebpackVersion = function() {
-    switch(webpackJsonp.length) {
-      case 2:
-        return 1;
-      case 3:
-        return 2;
+  moduleRaid.args = [
+    [[0], [function(e, t, i) {
+      mCac = i.c;
+      Object.keys(mCac).forEach(function(mod) {
+        moduleRaid.mObj[mod] = mCac[mod].exports;
+      })
+    }]],
+    [[], {'moduleraid': function(e, t, i) {
+      mCac = i.c;
+      Object.keys(mCac).forEach(function(mod) {
+        moduleRaid.mObj[mod] = mCac[mod].exports;
+      })
+    }}, ['moduleraid']]
+  ]
+
+  fillModuleArray = function() {
+    moduleRaid.args.forEach(function (argument) {
+      webpackJsonp(...argument);
+    })
+
+    if (moduleRaid.mObj.length == 0) {
+      mEnd = false;
+      mIter = 0;
+
+      if (!webpackJsonp([],[],[mIter])) {
+        throw 'Unknown Webpack structure';
+      }  
+
+      while (!mEnd) {
+        try {
+          moduleRaid.mObj[mIter] = webpackJsonp([],[],[mIter]);
+          mIter++;
+        }
+        catch (err) {
+          mEnd = true;
+        }
+      }
     }
   }
 
-  fillModuleArray = function(mArr, version) {
-    switch(version) {
-      case 1:
-        webpackJsonp([0], [function(e,t,i) {
-          mCac = i.c;
-          Object.keys(mCac).forEach(function(mod) {
-            mArr[mod] = mCac[mod].exports;
-          })
-        }]);
-        break;
-      case 2:
-        mEnd = false;
-        mIter = 0;
-
-        if (!webpackJsonp([],[],[mIter])) {
-          throw 'Unknown Webpack structure';
-        }
-      
-        while (!mEnd) {
-          try {
-            mArr[mIter] = webpackJsonp([],[],[mIter]);
-            mIter++;
-          }
-          catch (err) {
-            mEnd = true;
-          }
-        }
-        break;
-      default:
-        throw 'Unknown Webpack version';
-    }
-  }
-
-  fillModuleArray(mArr, getWebpackVersion())
+  fillModuleArray()
 
   get = function get (id) {
-    return mArr[id]
+    return moduleRaid.mObj[id]
   }
 
   findModule = function findModule (query) {
     results = [];
+    modules = Object.keys(moduleRaid.mObj)
     
-    mArr.forEach(function(mod) {
-      if (typeof mod.default === "object") {
-        for (key in mod.default) {
+    modules.forEach(function(mKey) {
+      mod = moduleRaid.mObj[mKey]
+
+      if (typeof mod !== 'undefined') {
+        if (typeof mod.default === "object") {
+          for (key in mod.default) {
+            if (key == query) results.push(mod);
+          }
+        }
+  
+        for (key in mod) {
           if (key == query) results.push(mod);
         }
-      }
-
-      for (key in mod) {
-        if (key == query) results.push(mod);
       }
     })
 
@@ -76,7 +79,7 @@ const moduleRaid = function () {
   }
 
   return { 
-    modules: mArr, 
+    modules: moduleRaid.mObj, 
     findModule: findModule, 
     get: get
   }

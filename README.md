@@ -13,9 +13,9 @@ $ npm install moduleraid
 Or if you directly want to use it in the browser
 
 ```html
-<script src="https://unpkg.com/moduleraid@2.0.1/moduleraid.js"></script>
+<script src="https://unpkg.com/moduleraid@3.0.0/moduleraid.js"></script>
 <!-- minified -->
-<script src="https://unpkg.com/moduleraid@2.0.1/moduleraid.min.js"></script>
+<script src="https://unpkg.com/moduleraid@3.0.0/moduleraid.min.js"></script>
 ```
 
 Alternatively, just copy the script from `moduleraid.js` and run it in a devtool console
@@ -41,7 +41,7 @@ If you a running the script from the console or loading it over a service like u
 Once `moduleRaid` is run or included on a page that includes a Webpack build (usually noted by a `webpackJsonp` function), it
 will return a object, containing:
 
-* `modules`: An array with all modules we could get from Webpack
+* `modules`: An object containing all modules we could get from Webpack
 * `get(id)`: Get the module from the specified `id`
 * `findModule(query)`: Return the module that has `query` as a key in its exports
 
@@ -49,8 +49,7 @@ If you run the code in devtools or load it as external script from unpkg/etc. th
 
 ## How it works
 
-There already was a script basically doing the same as `moduleRaid` some months earlier, called [`webcrack`](https://gist.github.com/no-boot-device/cb63762000e606e50690911cac1bcead) (made by [no-boot-device](https://github.com/no-boot-device)), which was rendered obsolute due to
-structural changes in how you can access Webpack modules from the outside.
+There already was a script basically doing the same as `moduleRaid` some months earlier, called [`webcrack`](https://gist.github.com/no-boot-device/cb63762000e606e50690911cac1bcead) (made by [no-boot-device](https://github.com/no-boot-device)), which was rendered obsolute due to structural changes in how you can access Webpack modules from the outside.
 
 This library is an effort to bring back the ability to inspect all available modules, for debugging or userscript purposes.
 
@@ -63,7 +62,6 @@ on `undefined`), and now we have all modules (_or most of them_)!
 
 ## Known Issues
 
-* Doesn't work with Webpack 3
 * There seem to be a lot of empty modules, I'm not sure if these are _padding_ or something is missing here
 
 ## License
