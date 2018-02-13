@@ -13,9 +13,9 @@ $ npm install moduleraid
 Or if you directly want to use it in the browser
 
 ```html
-<script src="https://unpkg.com/moduleraid@3.0.0/moduleraid.js"></script>
+<script src="https://unpkg.com/moduleraid@3.1.0/moduleraid.js"></script>
 <!-- minified -->
-<script src="https://unpkg.com/moduleraid@3.0.0/moduleraid.min.js"></script>
+<script src="https://unpkg.com/moduleraid@3.1.0/moduleraid.min.js"></script>
 ```
 
 Alternatively, just copy the script from `moduleraid.js` and run it in a devtool console
@@ -42,10 +42,14 @@ Once `moduleRaid` is run or included on a page that includes a Webpack build (us
 will return a object, containing:
 
 * `modules`: An object containing all modules we could get from Webpack
+* `constructors`: An array containing all module constructor functions
 * `get(id)`: Get the module from the specified `id`
 * `findModule(query)`: Return the module that has `query` as a key in its exports
+* `findFunction(query)`: Return functions that include `query` (`query` can be either a string or a function)
 
 If you run the code in devtools or load it as external script from unpkg/etc. the `moduleRaid` object can be found in `window.mR` by default.
+
+**Note:** If moduleRaid had to get modules through iteration, `constructors` will be empty and so `findFunction` will not work.
 
 ## How it works
 
