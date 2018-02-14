@@ -1,8 +1,11 @@
-# moduleRaid
+<div align='center'>
+  <img width=200px src='.github/logo.png?raw=true'>
 
-_:gift: Taking apart webpackJsonp_
+  <h1>moduleRaid</h1>
+  <p>moduleRaid is a utility to get modules and module constructors from <code>webpackJsonp</code> functions embedded on websites by Webpack. It also provides functions to search through returned modules.</p>
+</div>
 
-## Installation
+<h2 align='center'>Installation</h2>
 
 You can get moduleRaid over npm
 
@@ -21,7 +24,7 @@ Or if you directly want to use it in the browser
 Alternatively, just copy the script from `moduleraid.js` and run it in a devtool console
 on the site of your choosing.
 
-## Usage
+<h2 align='center'>Usage</h2>
 
 ### Preparation
 
@@ -51,7 +54,7 @@ If you run the code in devtools or load it as external script from unpkg/etc. th
 
 **Note:** If moduleRaid had to get modules through iteration, `constructors` will be empty and so `findFunction` will not work.
 
-## How it works
+<h2 align='center'>How it works</h2>
 
 There already was a script basically doing the same as `moduleRaid` some months earlier, called [`webcrack`](https://gist.github.com/no-boot-device/cb63762000e606e50690911cac1bcead) (made by [no-boot-device](https://github.com/no-boot-device)), which was rendered obsolute due to structural changes in how you can access Webpack modules from the outside.
 
@@ -64,10 +67,10 @@ a module given an index.
 So, in a brute-forcy manner we simply run a `while` over `webpackJsonp([], [], [i])` until we get an exception from Webpack (trying to run `call`
 on `undefined`), and now we have all modules (_or most of them_)!
 
-## Known Issues
+<h2 align='center'>Known Issues</h2>
 
 * There seem to be a lot of empty modules, I'm not sure if these are _padding_ or something is missing here
 
-## License
+<h2 align='center'>License</h2>
 
 moduleRaid is licensed under the MIT License
