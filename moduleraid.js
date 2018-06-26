@@ -1,6 +1,6 @@
 /* moduleRaid
  * https://github.com/pixeldesu/moduleRaid
- * 
+ *
  * Copyright pixeldesu and other contributors
  * Licensed under the MIT License
  * https://github.com/pixeldesu/moduleRaid/blob/master/LICENSE
@@ -18,7 +18,7 @@ const moduleRaid = function () {
       })
       moduleRaid.cArr = i.m;
     }]],
-    [[], {'moduleraid': function(e, t, i) {
+    [[1e3], {'moduleraid': function(e, t, i) {
       mCac = i.c;
       Object.keys(mCac).forEach (function(mod) {
         moduleRaid.mObj[mod] = mCac[mod].exports;
@@ -28,9 +28,14 @@ const moduleRaid = function () {
   ]
 
   fillModuleArray = function() {
-    moduleRaid.args.forEach(function (argument) {
-      webpackJsonp(...argument);
-    })
+    if (typeof webpackJsonp === 'function') {
+      moduleRaid.args.forEach(function (argument) {
+        webpackJsonp(...argument);
+      })
+    }
+    else {
+      webpackJsonp.push(moduleRaid.args[2])
+    }
 
     if (moduleRaid.mObj.length == 0) {
       mEnd = false;
@@ -38,7 +43,7 @@ const moduleRaid = function () {
 
       if (!webpackJsonp([],[],[mIter])) {
         throw Error("Unknown Webpack structure");
-      }  
+      }
 
       while (!mEnd) {
         try {
@@ -61,7 +66,7 @@ const moduleRaid = function () {
   findModule = function findModule (query) {
     results = [];
     modules = Object.keys(moduleRaid.mObj);
-    
+
     modules.forEach(function(mKey) {
       mod = moduleRaid.mObj[mKey];
 
@@ -71,7 +76,7 @@ const moduleRaid = function () {
             if (key == query) results.push(mod);
           }
         }
-  
+
         for (key in mod) {
           if (key == query) results.push(mod);
         }
@@ -89,8 +94,8 @@ const moduleRaid = function () {
     results = [];
 
     if (typeof query === "string") {
-      moduleRaid.cArr.forEach(function (ctor, index) { 
-        if (ctor.toString().includes(query)) { 
+      moduleRaid.cArr.forEach(function (ctor, index) {
+        if (ctor.toString().includes(query)) {
           results.push(moduleRaid.mObj[index]);
         }
       })
@@ -104,7 +109,7 @@ const moduleRaid = function () {
           results.push(moduleRaid.mObj[index]);
         }
       })
-    } else { 
+    } else {
       throw new TypeError('findFunction can only find via string and function, ' + (typeof query) + ' was passed');
     }
 
