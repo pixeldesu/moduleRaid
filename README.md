@@ -16,9 +16,9 @@ $ npm install moduleraid
 Or if you directly want to use it in the browser
 
 ```html
-<script src="https://unpkg.com/moduleraid@3.2.0/moduleraid.js"></script>
+<script src="https://unpkg.com/moduleraid@3.3.0/moduleraid.js"></script>
 <!-- minified -->
-<script src="https://unpkg.com/moduleraid@3.2.0/moduleraid.min.js"></script>
+<script src="https://unpkg.com/moduleraid@3.3.0/moduleraid.min.js"></script>
 ```
 
 Alternatively, just copy the script from `moduleraid.js` and run it in a devtool console
@@ -53,6 +53,13 @@ will return a object, containing:
 If you run the code in devtools or load it as external script from unpkg/etc. the `moduleRaid` object can be found in `window.mR` by default.
 
 **Note:** If moduleRaid had to get modules through iteration, `constructors` will be empty and so `findFunction` will not work.
+
+#### Debug Mode
+
+If you call moduleRaid with an optional argument `true`, you will enable debug output. Debug output will show errors that are normally supressed.
+
+In the version that is minified and you can't just add another argument easily, simply run `window.mRdebug = true` before adding the script and you should
+be fine!
 
 <h2 align='center'>How it works</h2>
 

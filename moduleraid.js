@@ -6,9 +6,23 @@
  * https://github.com/pixeldesu/moduleRaid/blob/master/LICENSE
  */
 
-const moduleRaid = function () {
+const moduleRaid = function (debug) {
   moduleRaid.mObj = {};
   moduleRaid.cArr = [];
+
+  if (debug) {
+    moduleRaid.debug = true;
+  } else if (window.mRdebug) {
+    moduleRaid.debug = true;
+  } else {
+    moduleRaid.debug = false;
+  }
+
+  moduleRaid.log = function (message) {
+    if (moduleRaid.debug) {
+      console.warn(`[moduleRaid] ${message}`);
+    }
+  }
 
   moduleRaid.args = [
     [[0], [function(e, t, i) {
@@ -24,17 +38,27 @@ const moduleRaid = function () {
         moduleRaid.mObj[mod] = mCac[mod].exports;
       })
       moduleRaid.cArr = i.m;
-    }}, ['moduleraid']]
+    }}, [['moduleraid']]]
   ]
 
   fillModuleArray = function() {
     if (typeof webpackJsonp === 'function') {
-      moduleRaid.args.forEach(function (argument) {
-        webpackJsonp(...argument);
+      moduleRaid.args.forEach(function (argument, index) {
+        try {
+          webpackJsonp(...argument);
+        }
+        catch (err) {
+          moduleRaid.log(`moduleRaid.args[${index}] failed: ${err}`);
+        }
       })
     }
     else {
-      webpackJsonp.push(moduleRaid.args[2])
+      try {
+        webpackJsonp.push(moduleRaid.args[1]);
+      }
+      catch (err) {
+        moduleRaid.log(`Pushing moduleRaid.args[1] into webpackJsonp failed: ${err}`);
+      }
     }
 
     if (moduleRaid.mObj.length == 0) {
