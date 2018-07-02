@@ -7,6 +7,7 @@
  */
 
 const moduleRaid = function (debug) {
+  moduleRaid.mID  = Math.random().toString(36).substring(7);
   moduleRaid.mObj = {};
   moduleRaid.cArr = [];
 
@@ -32,13 +33,13 @@ const moduleRaid = function (debug) {
       })
       moduleRaid.cArr = i.m;
     }]],
-    [[1e3], {'moduleraid': function(e, t, i) {
+    [[1e3], {[moduleRaid.mID]: function(e, t, i) {
       mCac = i.c;
       Object.keys(mCac).forEach (function(mod) {
         moduleRaid.mObj[mod] = mCac[mod].exports;
       })
       moduleRaid.cArr = i.m;
-    }}, [['moduleraid']]]
+    }}, [[moduleRaid.mID]]]
   ]
 
   fillModuleArray = function() {
@@ -66,7 +67,7 @@ const moduleRaid = function (debug) {
       mIter = 0;
 
       if (!webpackJsonp([],[],[mIter])) {
-        throw Error("Unknown Webpack structure");
+        throw Error('Unknown Webpack structure');
       }
 
       while (!mEnd) {
@@ -95,7 +96,7 @@ const moduleRaid = function (debug) {
       mod = moduleRaid.mObj[mKey];
 
       if (typeof mod !== 'undefined') {
-        if (typeof mod.default === "object") {
+        if (typeof mod.default === 'object') {
           for (key in mod.default) {
             if (key == query) results.push(mod);
           }
@@ -112,18 +113,18 @@ const moduleRaid = function (debug) {
 
   findFunction = function(query) {
     if (moduleRaid.cArr.length == 0) {
-      throw Error("No module constructors to search through!");
+      throw Error('No module constructors to search through!');
     }
 
     results = [];
 
-    if (typeof query === "string") {
+    if (typeof query === 'string') {
       moduleRaid.cArr.forEach(function (ctor, index) {
         if (ctor.toString().includes(query)) {
           results.push(moduleRaid.mObj[index]);
         }
       })
-    } else if (typeof query === "function") {
+    } else if (typeof query === 'function') {
       modules = Object.keys(moduleRaid.mObj);
 
       modules.forEach(function(mKey, index) {
