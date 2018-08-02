@@ -10,6 +10,7 @@ const moduleRaid = function (debug) {
   moduleRaid.mID  = Math.random().toString(36).substring(7);
   moduleRaid.mObj = {};
   moduleRaid.cArr = [];
+  moduleRaid.mGet = null;
 
   if (debug) {
     moduleRaid.debug = true;
@@ -32,6 +33,7 @@ const moduleRaid = function (debug) {
         moduleRaid.mObj[mod] = mCac[mod].exports;
       })
       moduleRaid.cArr = i.m;
+      moduleRaid.mGet = i;
     }]],
     [[1e3], {[moduleRaid.mID]: function(e, t, i) {
       mCac = i.c;
@@ -39,6 +41,7 @@ const moduleRaid = function (debug) {
         moduleRaid.mObj[mod] = mCac[mod].exports;
       })
       moduleRaid.cArr = i.m;
+      moduleRaid.mGet = i;
     }}, [[moduleRaid.mID]]]
   ]
 
@@ -146,7 +149,7 @@ const moduleRaid = function (debug) {
     constructors: moduleRaid.cArr,
     findModule: findModule,
     findFunction: findFunction,
-    get: get
+    get: moduleRaid.mGet ? moduleRaid.mGet : get
   }
 }
 
