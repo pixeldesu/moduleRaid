@@ -99,15 +99,24 @@ const moduleRaid = function (debug) {
       mod = moduleRaid.mObj[mKey];
 
       if (typeof mod !== 'undefined') {
-        if (typeof mod.default === 'object') {
-          for (key in mod.default) {
+        if (typeof query === 'string') {
+          if (typeof mod.default === 'object') {
+            for (key in mod.default) {
+              if (key == query) results.push(mod);
+            }
+          }
+
+          for (key in mod) {
             if (key == query) results.push(mod);
           }
+        } else if (typeof query === 'function') { 
+          if (query(mod)) {
+            results.push(mod);
+          }
+        } else {
+          throw new TypeError('findModule can only find via string and function, ' + (typeof query) + ' was passed');
         }
-
-        for (key in mod) {
-          if (key == query) results.push(mod);
-        }
+        
       }
     })
 
