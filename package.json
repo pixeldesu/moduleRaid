@@ -1,6 +1,6 @@
 {
   "name": "moduleraid",
-  "version": "4.0.1",
+  "version": "4.1.0",
   "description": "Get modules from webpackJsonp",
   "main": "dist/moduleraid.js",
   "module": "dist/moduleraid.esm.js",
