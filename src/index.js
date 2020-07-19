@@ -6,7 +6,7 @@
  * https://github.com/pixeldesu/moduleRaid/blob/master/LICENSE
  */
 
-const moduleRaid = function (debug) {
+export function moduleRaid (debug) {
   moduleRaid.mID  = Math.random().toString(36).substring(7);
   moduleRaid.mObj = {};
   moduleRaid.cArr = [];
@@ -160,10 +160,4 @@ const moduleRaid = function (debug) {
     findFunction: findFunction,
     get: moduleRaid.mGet ? moduleRaid.mGet : get
   }
-}
-
-if (typeof module === 'object' && module.exports) {
-  module.exports = moduleRaid;
-} else {
-  window.mR = moduleRaid();
 }

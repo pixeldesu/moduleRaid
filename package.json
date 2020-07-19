@@ -2,11 +2,14 @@
   "name": "moduleraid",
   "version": "4.0.1",
   "description": "Get modules from webpackJsonp",
-  "main": "moduleraid.js",
+  "main": "dist/moduleraid.js",
+  "module": "dist/moduleraid.esm.js",
+  "browser": "dist/moduleraid.min.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "rollup -c",
+    "watch": "rollup -c -w"
   },
-  "types": "./moduleraid.d.ts",
+  "types": "./declarations.d.ts",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/pixeldesu/moduleRaid.git"
@@ -18,13 +21,23 @@
     "extraction"
   ],
   "files": [
-    "moduleraid.js",
-    "moduleraid.min.js"
+    "declarations.d.ts",
+    "dist/moduleraid.js",
+    "dist/moduleraid.esm.js",
+    "dist/moduleraid.min.js"
   ],
   "author": "Andreas Nedbal <andy@pixelde.su>",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/pixeldesu/moduleRaid/issues"
   },
-  "homepage": "https://github.com/pixeldesu/moduleRaid#readme"
+  "homepage": "https://github.com/pixeldesu/moduleRaid#readme",
+  "devDependencies": {
+    "@babel/core": "^7.10.5",
+    "@babel/preset-env": "^7.10.4",
+    "@rollup/plugin-babel": "^5.1.0",
+    "deepmerge": "^4.2.2",
+    "rollup": "^2.22.1",
+    "rollup-plugin-terser": "^6.1.0"
+  }
 }
