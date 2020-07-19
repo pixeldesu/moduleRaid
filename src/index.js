@@ -20,34 +20,34 @@ export function moduleRaid (debug) {
     moduleRaid.debug = false;
   }
 
-  moduleRaid.log = function (message) {
+  moduleRaid.log = (message) => {
     if (moduleRaid.debug) {
       console.warn(`[moduleRaid] ${message}`);
     }
-  }
+  };
 
   moduleRaid.args = [
-    [[0], [function(e, t, i) {
+    [[0], [(e, t, i) => {
       mCac = i.c;
-      Object.keys(mCac).forEach (function(mod) {
+      Object.keys(mCac).forEach ((mod) => {
         moduleRaid.mObj[mod] = mCac[mod].exports;
-      })
+      });
       moduleRaid.cArr = i.m;
       moduleRaid.mGet = i;
     }]],
-    [[1e3], {[moduleRaid.mID]: function(e, t, i) {
+    [[1e3], {[moduleRaid.mID]: (e, t, i) => {
       mCac = i.c;
-      Object.keys(mCac).forEach (function(mod) {
+      Object.keys(mCac).forEach ((mod) => {
         moduleRaid.mObj[mod] = mCac[mod].exports;
-      })
+      });
       moduleRaid.cArr = i.m;
       moduleRaid.mGet = i;
     }}, [[moduleRaid.mID]]]
   ]
 
-  fillModuleArray = function() {
+  const fillModuleArray = () => {
     if (typeof webpackJsonp === 'function') {
-      moduleRaid.args.forEach(function (argument, index) {
+      moduleRaid.args.forEach((argument, index) => {
         try {
           webpackJsonp(...argument);
         }
@@ -83,15 +83,15 @@ export function moduleRaid (debug) {
         }
       }
     }
-  }
+  };
 
-  fillModuleArray()
+  fillModuleArray();
 
-  get = function get (id) {
+  const get = (id) => {
     return moduleRaid.mObj[id]
-  }
+  };
 
-  findModule = function findModule (query) {
+  const findModule = (query) => {
     results = [];
     modules = Object.keys(moduleRaid.mObj);
 
@@ -114,16 +114,16 @@ export function moduleRaid (debug) {
             results.push(mod);
           }
         } else {
-          throw new TypeError('findModule can only find via string and function, ' + (typeof query) + ' was passed');
+          throw new TypeError(`findModule can only find via string and function, ${typeof query} was passed`);
         }
         
       }
-    })
+    });
 
     return results;
-  }
+  };
 
-  findFunction = function(query) {
+  const findFunction = (query) => {
     if (moduleRaid.cArr.length == 0) {
       throw Error('No module constructors to search through!');
     }
@@ -131,27 +131,27 @@ export function moduleRaid (debug) {
     results = [];
 
     if (typeof query === 'string') {
-      moduleRaid.cArr.forEach(function (ctor, index) {
+      moduleRaid.cArr.forEach((ctor, index) => {
         if (ctor.toString().includes(query)) {
           results.push(moduleRaid.mObj[index]);
         }
-      })
+      });
     } else if (typeof query === 'function') {
       modules = Object.keys(moduleRaid.mObj);
 
-      modules.forEach(function(mKey, index) {
+      modules.forEach((mKey, index) => {
         mod = moduleRaid.mObj[mKey];
 
         if (query(mod)) {
           results.push(moduleRaid.mObj[index]);
         }
-      })
+      });
     } else {
-      throw new TypeError('findFunction can only find via string and function, ' + (typeof query) + ' was passed');
+      throw new TypeError(`findFunction can only find via string and function, ${typeof query} was passed`);
     }
 
     return results;
-  }
+  };
 
   return {
     modules: moduleRaid.mObj,
@@ -159,5 +159,5 @@ export function moduleRaid (debug) {
     findModule: findModule,
     findFunction: findFunction,
     get: moduleRaid.mGet ? moduleRaid.mGet : get
-  }
+  };
 }
