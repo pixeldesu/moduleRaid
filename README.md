@@ -61,7 +61,7 @@ be fine!
 
 <h2 align='center'>How it works</h2>
 
-There already was a script basically doing the same as `moduleRaid` some months earlier, called [`webcrack`](https://gist.github.com/no-boot-device/cb63762000e606e50690911cac1bcead) (made by [no-boot-device](https://github.com/no-boot-device)), which was rendered obsolute due to structural changes in how you can access Webpack modules from the outside.
+There already was a script basically doing the same as `moduleRaid` some months earlier, called [`webcrack`](https://gist.github.com/twilight-sparkle-irl/cb63762000e606e50690911cac1bcead) (made by [twilight-sparkle-irl](https://github.com/twilight-sparkle-irl)), which was rendered obsolute due to structural changes in how you can access Webpack modules from the outside.
 
 This library is an effort to bring back the ability to inspect all available modules, for debugging or userscript purposes.
 
