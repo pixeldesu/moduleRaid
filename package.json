@@ -1,15 +1,23 @@
 {
   "name": "moduleraid",
-  "version": "4.1.0",
+  "version": "5.0.0",
   "description": "Get modules from webpackJsonp",
+  "source": "src/index.ts",
   "main": "dist/moduleraid.js",
-  "module": "dist/moduleraid.esm.js",
-  "browser": "dist/moduleraid.min.js",
+  "exports": "./dist/moduleraid.modern.js",
+  "module": "dist/moduleraid.module.js",
+  "unpkg": "dist/moduleraid.umd.js",
+  "iife": "dist/moduleraid.iife.js",
+  "types": "dist/index.d.ts",
   "scripts": {
-    "build": "rollup -c",
-    "watch": "rollup -c -w"
+    "build": "microbundle",
+    "postbuild": "microbundle -i src/index.ts -o dist/moduleraid.iife.js --external none --no-pkg-main -f iife",
+    "dev": "microbundle watch",
+    "fix": "eslint --fix . --ext .js,.ts",
+    "lint": "eslint . --ext .js,.ts",
+    "test": "jest",
+    "prepare": "husky install"
   },
-  "types": "./declarations.d.ts",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/pixeldesu/moduleRaid.git"
@@ -20,24 +28,29 @@
     "research",
     "extraction"
   ],
-  "files": [
-    "declarations.d.ts",
-    "dist/moduleraid.js",
-    "dist/moduleraid.esm.js",
-    "dist/moduleraid.min.js"
-  ],
   "author": "Andreas Nedbal <andy@pixelde.su>",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/pixeldesu/moduleRaid/issues"
   },
   "homepage": "https://github.com/pixeldesu/moduleRaid#readme",
+  "lint-staged": {
+    "*.{js,ts}": "eslint --fix"
+  },
+  "dependencies": {
+    "json-stringify-safe": "^5.0.1"
+  },
   "devDependencies": {
-    "@babel/core": "^7.10.5",
-    "@babel/preset-env": "^7.10.4",
-    "@rollup/plugin-babel": "^5.1.0",
-    "deepmerge": "^4.2.2",
-    "rollup": "^2.22.1",
-    "rollup-plugin-terser": "^6.1.0"
+    "@types/json-stringify-safe": "^5.0.0",
+    "@typescript-eslint/eslint-plugin": "^4.28.4",
+    "@typescript-eslint/parser": "^4.28.4",
+    "eslint": "^7.31.0",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-prettier": "^3.4.0",
+    "husky": "^7.0.1",
+    "lint-staged": "^11.1.1",
+    "microbundle": "^0.13.3",
+    "prettier": "^2.3.2",
+    "typescript": "^4.3.5"
   }
 }
