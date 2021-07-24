@@ -30,9 +30,9 @@ Using `moduleRaid` as a module, simply require and execute it somewhere where it
 includes a Webpack build!
 
 ```js
-const moduleRaid = require('moduleraid')
+import ModuleRaid from 'moduleRaid'
 
-window.mR = new moduleRaid()
+window.mR = new ModuleRaid()
 ```
 
 ### The `moduleraid` object
