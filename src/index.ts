@@ -77,10 +77,10 @@ export default class ModuleRaid {
 
   /**
    * moduleRaid constructor
-   * 
+   *
    * @param debug Enables debugging output for the created instance
    */
-  constructor(debug: boolean = false) {
+  constructor(debug = false) {
     this.debug = debug
 
     this.fillModules()
@@ -90,7 +90,7 @@ export default class ModuleRaid {
   /**
    * Debug logging method, works when true is passed as an argument to the main
    * moduleRaid function, or when window.mRdebug is set to true
-   * 
+   *
    * @param {*} message The message to be logged
    */
   private log(message: string): void {
@@ -152,10 +152,10 @@ export default class ModuleRaid {
   /**
    * Method to search through the module object, searching for the fitting content
    * if a string is supplied
-   * 
+   *
    * If query is supplied as a function, everything that returns true when passed
    * to the query function will be returned
-   * 
+   *
    * @param query query to search the module list for
    * @return a list of modules fitting the query
    */
@@ -179,21 +179,10 @@ export default class ModuleRaid {
               if (module.includes(query)) results.push(module)
               break
             case 'function':
-              if (
-                module
-                  .toString()
-                  .toLowerCase()
-                  .includes(query)
-              )
-                results.push(module)
+              if (module.toString().toLowerCase().includes(query)) results.push(module)
               break
             case 'object':
-              if (
-                stringify(module)
-                  .toLowerCase()
-                  .includes(query)
-              )
-                results.push(module)
+              if (stringify(module).toLowerCase().includes(query)) results.push(module)
               break
           }
         } else if (typeof query === 'function') {
@@ -214,10 +203,10 @@ export default class ModuleRaid {
   /**
    * Method to search through the constructor array, searching for the fitting content
    * if a string is supplied
-   * 
+   *
    * If query is supplied as a function, everything that returns true when passed
    * to the query function will be returned
-   * 
+   *
    * @param query query to search the constructor list for
    * @returns a list of constructor/module tuples fitting the query
    */

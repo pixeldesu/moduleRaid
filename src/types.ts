@@ -37,7 +37,7 @@ export type WebpackModuleCache = {
 }
 
 /**
- * Type describing the prototype contents of the __webpack_require__ 
+ * Type describing the prototype contents of the __webpack_require__
  */
 export interface WebpackRequire {
   c: WebpackModuleCache
