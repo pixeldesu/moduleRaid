@@ -22,6 +22,10 @@
     "type": "git",
     "url": "git+https://github.com/pixeldesu/moduleRaid.git"
   },
+  "files": [
+    "/dist",
+    "/src"
+  ],
   "keywords": [
     "webpack",
     "module",
