@@ -1,0 +1,6 @@
+{
+  "entryPoints": ["src/"],
+  "exclude": ["src/index.ts"],
+  "excludeInternal": true,
+  "readme": "none"
+}

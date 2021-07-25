@@ -19,14 +19,14 @@ export class ModuleRaid {
   /**
    * The Webpack entrypoint present on the global window object
    *
-   * @defaultValue `webpackJsonp`
+   * @default `webpackJsonp`
    */
   private entrypoint: string
 
   /**
    * Option enabling or disabling debug output
    *
-   * @defaultValue `false`
+   * @default `false`
    */
   private debug: boolean
 
@@ -146,10 +146,10 @@ export class ModuleRaid {
   }
 
   /**
-   * Debug logging method, works when true is passed as an argument to the main
-   * moduleRaid function, or when window.mRdebug is set to true
+   * Debug logging method, outputs to the console when {@link ModuleRaid.debug} is true
    *
    * @param {*} message The message to be logged
+   * @internal
    */
   private log(message: string): void {
     if (this.debug) {
@@ -160,6 +160,7 @@ export class ModuleRaid {
   /**
    * Method to set an alternative getter if we weren't able to extract __webpack_require__
    * from Webpack
+   * @internal
    */
   private replaceGet(): void {
     if (this.get === null) {
@@ -170,6 +171,7 @@ export class ModuleRaid {
   /**
    * Method that will try to inject a module into Webpack or get modules
    * depending on it's success it might be more or less brute about it
+   * @internal
    */
   private fillModules(): void {
     if (typeof webpackJsonp === 'function') {

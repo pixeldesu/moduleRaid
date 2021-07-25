@@ -24,6 +24,7 @@ export type ModuleLike =
 
 /**
  * Type describing generic contents of default modules
+ * @internal
  */
 export type DefaultModuleLike = {
   default: Record<string, unknown>
@@ -43,6 +44,7 @@ export type ConstructorModuleTuple = [AnyFunction, ModuleLike]
 
 /**
  * Type describing possible arguments to `webpackJsonp`
+ * @internal
  */
 export type WebpackArgument = [
   [number] | [string] | [],
@@ -57,6 +59,7 @@ export type WebpackArgument = [
 
 /**
  * Type describing the contents of the Webpack module cache
+ * @internal
  */
 export type WebpackModuleCache = {
   [key: string]: { exports: ModuleLike }
@@ -64,6 +67,7 @@ export type WebpackModuleCache = {
 
 /**
  * Type describing the prototype contents of the __webpack_require__
+ * @internal
  */
 export interface WebpackRequire {
   c: WebpackModuleCache
@@ -77,6 +81,7 @@ export type WebpackRequireFunction = (key: string | number) => ModuleLike
 
 /**
  * Type describing Webpack module constructors
+ * @internal
  */
 export type WebpackModuleFunction =
   | ((e: unknown, t: unknown, i: WebpackRequire) => void)
