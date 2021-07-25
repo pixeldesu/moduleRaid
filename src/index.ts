@@ -233,7 +233,7 @@ export default class ModuleRaid {
         if (typeof query === 'string') {
           query = query.toLowerCase()
 
-          if (constructor.toString().includes(query))
+          if (constructor.toString().toLowerCase().includes(query))
             results.push([this.constructors[key as unknown as number], this.modules[key]])
         } else if (typeof query === 'function') {
           if (query(constructor))
