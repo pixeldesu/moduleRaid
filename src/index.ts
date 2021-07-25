@@ -1,5 +1,3 @@
-import stringify from 'json-stringify-safe'
-
 import {
   AnyFunction,
   ConstructorModuleTuple,
@@ -182,7 +180,15 @@ export default class ModuleRaid {
               if (module.toString().toLowerCase().includes(query)) results.push(module)
               break
             case 'object':
-              if (stringify(module).toLowerCase().includes(query)) results.push(module)
+              if (typeof (module as { default: {}}).default === 'object') {
+                for (key in (module as { default: {}}).default) {
+                  if (key.toLowerCase() === query) results.push(module);
+                }
+              }
+    
+              for (key in module) {
+                if (key.toLowerCase() === query) results.push(module);
+              }
               break
           }
         } else if (typeof query === 'function') {

@@ -6,7 +6,7 @@ export type AnyFunction = (...args: unknown[]) => unknown
 /**
  * Type describing possible contents of Webpack modules
  */
-export type ModuleLike = string | number | AnyFunction | Record<string, unknown> | Array<unknown>
+export type ModuleLike = string | number | AnyFunction | Array<{ default: unknown }> | Record<string, unknown> | Array<unknown> 
 
 /**
  * Type describing the list of modules
