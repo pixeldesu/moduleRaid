@@ -11,7 +11,7 @@
   "types": "dist/index.d.ts",
   "scripts": {
     "build": "microbundle",
-    "postbuild": "microbundle -i src/index.ts -o dist/moduleraid.iife.js --external none --no-pkg-main -f iife",
+    "postbuild": "microbundle -i src/index.ts -o dist/moduleraid.iife.js --name ModuleRaid --no-pkg-main -f iife",
     "dev": "microbundle watch",
     "fix": "eslint --fix . --ext .js,.ts",
     "lint": "eslint . --ext .js,.ts",

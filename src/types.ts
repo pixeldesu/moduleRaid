@@ -1,4 +1,12 @@
 /**
+ * Constructor parameters for the moduleRaid class
+ */
+export interface ModuleRaidParameters {
+  entrypoint?: string
+  debug?: boolean
+}
+
+/**
  * Function type describing any kind of possible function
  */
 export type AnyFunction = (...args: unknown[]) => unknown
@@ -6,7 +14,20 @@ export type AnyFunction = (...args: unknown[]) => unknown
 /**
  * Type describing possible contents of Webpack modules
  */
-export type ModuleLike = string | number | AnyFunction | Array<{ default: unknown }> | Record<string, unknown> | Array<unknown> 
+export type ModuleLike =
+  | string
+  | number
+  | AnyFunction
+  | Array<{ default: unknown }>
+  | Record<string, unknown>
+  | Array<unknown>
+
+/**
+ * Type describing generic contents of default modules
+ */
+export type DefaultModuleLike = {
+  default: Record<string, unknown>
+}
 
 /**
  * Type describing the list of modules
@@ -24,9 +45,14 @@ export type ConstructorModuleTuple = [AnyFunction, ModuleLike]
  * Type describing possible arguments to `webpackJsonp`
  */
 export type WebpackArgument = [
-  [number] | [],
-  [WebpackModuleFunction] | { [key in string | number]: WebpackModuleFunction } | [],
-  [[number] | [string] | number]?
+  [number] | [string] | [],
+  (
+    | [WebpackModuleFunction]
+    | { [key in string | number]: WebpackModuleFunction }
+    | []
+    | Record<string, unknown>
+  ),
+  ([[number] | [string] | number] | WebpackModuleFunction)?
 ]
 
 /**
@@ -41,7 +67,7 @@ export type WebpackModuleCache = {
  */
 export interface WebpackRequire {
   c: WebpackModuleCache
-  m: AnyFunction[]
+  m: AnyFunction[] | WebpackModuleCache
 }
 
 /**
@@ -52,4 +78,6 @@ export type WebpackRequireFunction = (key: string | number) => ModuleLike
 /**
  * Type describing Webpack module constructors
  */
-export type WebpackModuleFunction = (e: unknown, t: unknown, i: WebpackRequire) => void
+export type WebpackModuleFunction =
+  | ((e: unknown, t: unknown, i: WebpackRequire) => void)
+  | ((e: WebpackRequire) => void)
