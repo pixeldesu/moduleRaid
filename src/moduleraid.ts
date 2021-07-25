@@ -113,13 +113,13 @@ export class ModuleRaid {
 
   /**
    * moduleRaid constructor
-   * 
-   * @example  
+   *
+   * @example
    * Constructing an instance without any arguments:
    * ```ts
    * const mR = new ModuleRaid()
    * ```
-   * 
+   *
    * Constructing an instance with the optional `opts` object:
    * ```ts
    * const mR = new ModuleRaid({ entrypoint: 'webpackChunk_custom_name' })
@@ -231,20 +231,20 @@ export class ModuleRaid {
    *
    * If query is supplied as a function, everything that returns true when passed
    * to the query function will be returned
-   * 
-   * @example  
+   *
+   * @example
    * With a string as query argument:
    * ```ts
    * const results = mR.findModule('feature')
    * // => Array of module results
    * ```
-   * 
+   *
    * With a function as query argument:
    * ```ts
    * const results = mR.findModule((module) => { typeof module === 'function' })
    * // => Array of module results
    * ```
-   * 
+   *
    * @param query query to search the module list for
    * @return a list of modules fitting the query
    */
@@ -305,14 +305,14 @@ export class ModuleRaid {
    *
    * If query is supplied as a function, everything that returns true when passed
    * to the query function will be returned
-   * 
-   * @example 
+   *
+   * @example
    * With a string as query argument:
    * ```ts
    * const results = mR.findConstructor('feature')
    * // => Array of constructor/module tuples
    * ```
-   * 
+   *
    * With a function as query argument:
    * ```ts
    * const results = mR.findConstructor((constructor) => { constructor.prototype.value !== undefined })
@@ -323,14 +323,14 @@ export class ModuleRaid {
    * ```ts
    * // With array destructuring (ES6)
    * const [constructor, module] = results[0]
-   * 
+   *
    * // ...or...
-   * 
+   *
    * // regular access
    * const constructor = results[0][0]
    * const module = results[0][1]
    * ```
-   * 
+   *
    * @param query query to search the constructor list for
    * @returns a list of constructor/module tuples fitting the query
    */
