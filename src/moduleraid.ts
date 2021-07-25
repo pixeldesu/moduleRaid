@@ -113,12 +113,24 @@ export class ModuleRaid {
 
   /**
    * moduleRaid constructor
+   * 
+   * @example  
+   * Constructing an instance without any arguments:
+   * ```ts
+   * const mR = new ModuleRaid()
+   * ```
+   * 
+   * Constructing an instance with the optional `opts` object:
+   * ```ts
+   * const mR = new ModuleRaid({ entrypoint: 'webpackChunk_custom_name' })
+   * ```
    *
    * @param opts a object containing options to initialize moduleRaid with
    *  - **opts:**
    *    - _entrypoint_: the Webpack entrypoint present on the global window object
    *    - _debug_: whether debug mode is enabled or not
    *  - a single boolean is supported as a fallback to behaviour from versions before 5.1 and should not be used anymore
+   *
    */
   constructor(opts?: ModuleRaidParameters | boolean) {
     let options = {
@@ -219,7 +231,20 @@ export class ModuleRaid {
    *
    * If query is supplied as a function, everything that returns true when passed
    * to the query function will be returned
-   *
+   * 
+   * @example  
+   * With a string as query argument:
+   * ```ts
+   * const results = mR.findModule('feature')
+   * // => Array of module results
+   * ```
+   * 
+   * With a function as query argument:
+   * ```ts
+   * const results = mR.findModule((module) => { typeof module === 'function' })
+   * // => Array of module results
+   * ```
+   * 
    * @param query query to search the module list for
    * @return a list of modules fitting the query
    */
@@ -280,7 +305,32 @@ export class ModuleRaid {
    *
    * If query is supplied as a function, everything that returns true when passed
    * to the query function will be returned
+   * 
+   * @example 
+   * With a string as query argument:
+   * ```ts
+   * const results = mR.findConstructor('feature')
+   * // => Array of constructor/module tuples
+   * ```
+   * 
+   * With a function as query argument:
+   * ```ts
+   * const results = mR.findConstructor((constructor) => { constructor.prototype.value !== undefined })
+   * // => Array of constructor/module tuples
+   * ```
    *
+   * Accessing the resulting data:
+   * ```ts
+   * // With array destructuring (ES6)
+   * const [constructor, module] = results[0]
+   * 
+   * // ...or...
+   * 
+   * // regular access
+   * const constructor = results[0][0]
+   * const module = results[0][1]
+   * ```
+   * 
    * @param query query to search the constructor list for
    * @returns a list of constructor/module tuples fitting the query
    */

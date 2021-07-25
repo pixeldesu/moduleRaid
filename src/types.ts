@@ -2,7 +2,14 @@
  * Constructor parameters for the moduleRaid class
  */
 export interface ModuleRaidParameters {
+  /**
+   * The Webpack entrypoint present on the global window object
+   */
   entrypoint?: string
+
+  /**
+   * Option enabling or disabling debug output
+   */
   debug?: boolean
 }
 
