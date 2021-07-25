@@ -197,7 +197,9 @@ export class ModuleRaid {
     } else {
       this.arrayArguments.forEach((argument, index) => {
         try {
-          ;(window[this.entrypoint] as ModuleLike[]).push(argument)
+          (window[this.entrypoint] as ModuleLike[]).push(argument)
+
+          if (Object.keys(this.modules).length > 0) return
         } catch (err) {
           this.log(
             `Pushing moduleRaid.arrayArguments[${index}] into ${this.entrypoint} failed:\n${err}\n${err.stack}`
