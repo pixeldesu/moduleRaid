@@ -199,7 +199,7 @@ export class ModuleRaid {
         try {
           (window[this.entrypoint] as ModuleLike[]).push(argument)
 
-          if (Object.keys(this.modules).length > 0) return
+          if (this.modules && Object.keys(this.modules).length > 0) return
         } catch (err) {
           this.log(
             `Pushing moduleRaid.arrayArguments[${index}] into ${this.entrypoint} failed:\n${err}\n${err.stack}`
@@ -208,7 +208,7 @@ export class ModuleRaid {
       })
     }
 
-    if (this.modules.length == 0) {
+    if (this.modules && Object.keys(this.modules).length == 0) {
       let moduleEnd = false
       let moduleIterator = 0
 
