@@ -16,7 +16,7 @@
     "fix": "eslint --fix src/ --ext .ts",
     "lint": "eslint src/ --ext .ts",
     "test": "jest",
-    "prepare": "husky install",
+    "prepare": "npm run build && husky install",
     "docs": "typedoc src/ --readme none"
   },
   "repository": {
