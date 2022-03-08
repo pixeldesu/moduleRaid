@@ -136,6 +136,7 @@ export class ModuleRaid {
     let options = {
       entrypoint: 'webpackJsonp',
       debug: false,
+      dynamic: false,
     }
 
     if (typeof opts === 'object') {
@@ -153,8 +154,12 @@ export class ModuleRaid {
     this.entrypoint = options.entrypoint
     this.debug = options.debug
 
-    this.fillModules()
-    this.replaceGet()
+    if (options.dynamic) {
+      this.proxyPush()
+    } else {
+      this.fillModules()
+      this.replaceGet()
+    }
   }
 
   /**
@@ -167,6 +172,19 @@ export class ModuleRaid {
     if (this.debug) {
       console.warn(`[moduleRaid] ${message}`)
     }
+  }
+
+  private proxyPush() {
+    // eslint-disable-next-line @typescript-eslint/no-this-alias
+    const self = this
+    window[this.entrypoint].push = new Proxy(window[this.entrypoint].push, {
+      apply(target, thisArg, args) {
+        Object.keys(args[1] || args[0][1] || {}).forEach((newModuleKey) => {
+          self.modules[newModuleKey] = (args[1] || args[0][1] || {})[newModuleKey]
+        })
+        return target.apply(thisArg, args)
+      },
+    })
   }
 
   /**

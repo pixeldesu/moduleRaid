@@ -11,6 +11,11 @@ export interface ModuleRaidParameters {
    * Option enabling or disabling debug output
    */
   debug?: boolean
+
+  /**
+   * Option enabling a "dynamic" mode, making it so ModuleRaid grabs modules as they are added into webpackJsonp
+   */
+  dynamic?: boolean
 }
 
 /**
