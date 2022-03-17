@@ -45,10 +45,7 @@ export class ModuleRaid {
       [0],
       [
         (_e: unknown, _t: unknown, i: WebpackRequire) => {
-          const mCac = i.c
-          Object.keys(mCac).forEach((mod) => {
-            this.modules[mod] = mCac[mod].exports
-          })
+          this.modules = i.c
           this.constructors = i.m as AnyFunction[]
           this.get = i as unknown as WebpackRequireFunction
         },
@@ -58,10 +55,7 @@ export class ModuleRaid {
       [1e3],
       {
         [this.moduleID]: (_e: unknown, _t: unknown, i: WebpackRequire) => {
-          const mCac = i.c
-          Object.keys(mCac).forEach((mod: string) => {
-            this.modules[mod] = mCac[mod].exports
-          })
+          this.modules = i.c
           this.constructors = i.m as AnyFunction[]
           this.get = i as unknown as WebpackRequireFunction
         },
