@@ -177,6 +177,8 @@ export class ModuleRaid {
     if (typeof webpackJsonp === 'function') {
       this.functionArguments.forEach((argument, index) => {
         try {
+          if (this.modules && Object.keys(this.modules).length > 0) return
+
           window[this.entrypoint](...argument)
         } catch (err) {
           this.log(`moduleRaid.functionArguments[${index}] failed:\n${err}\n${err.stack}`)
@@ -185,9 +187,9 @@ export class ModuleRaid {
     } else {
       this.arrayArguments.forEach((argument, index) => {
         try {
-          (window[this.entrypoint] as ModuleLike[]).push(argument)
-
           if (this.modules && Object.keys(this.modules).length > 0) return
+
+          (window[this.entrypoint] as ModuleLike[]).push(argument)
         } catch (err) {
           this.log(
             `Pushing moduleRaid.arrayArguments[${index}] into ${this.entrypoint} failed:\n${err}\n${err.stack}`
