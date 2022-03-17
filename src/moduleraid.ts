@@ -143,6 +143,7 @@ export class ModuleRaid {
 
     this.fillModules()
     this.replaceGet()
+    this.setupPushEvent()
   }
 
   /**
@@ -214,6 +215,22 @@ export class ModuleRaid {
           moduleEnd = true
         }
       }
+    }
+  }
+
+  /**
+   * Method to hook into `window[this.entrypoint].push` adding a listener for new
+   * chunks being pushed into Webpack
+   */
+  private setupPushEvent() {
+    const originalPush = window[this.entrypoint].push
+
+    window[this.entrypoint].push = (...args: unknown[]) => {
+      document.dispatchEvent(
+        new CustomEvent('moduleraid:webpack-push', { detail: args })
+      );
+  
+      return Reflect.apply(originalPush as Function, window[this.entrypoint], args)
     }
   }
 
