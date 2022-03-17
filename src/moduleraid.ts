@@ -129,7 +129,6 @@ export class ModuleRaid {
    *  - **opts:**
    *    - _entrypoint_: the Webpack entrypoint present on the global window object
    *    - _debug_: whether debug mode is enabled or not
-   *  - a single boolean is supported as a fallback to behaviour from versions before 5.1 and should not be used anymore
    *
    */
   constructor(opts?: ModuleRaidParameters | boolean) {
@@ -143,11 +142,6 @@ export class ModuleRaid {
         ...options,
         ...opts,
       }
-    } else if (typeof opts === 'boolean') {
-      console.warn(
-        `[moduleRaid] Using a single boolean argument is deprecated, please use 'new ModuleRaid({ debug: true })'`
-      )
-      options.debug = opts
     }
 
     this.entrypoint = options.entrypoint
