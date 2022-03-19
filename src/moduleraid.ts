@@ -66,7 +66,7 @@ export class ModuleRaid {
    * @internal
    */
   private arrayArguments: WebpackArgument[] = [
-    ...this.functionArguments,
+    this.functionArguments[1],
     [
       [this.moduleID],
       {},
@@ -266,6 +266,8 @@ export class ModuleRaid {
     modules.forEach((key: string) => {
       const module = this.modules[key].exports
 
+      if (module === undefined) return
+      
       try {
         if (typeof query === 'string') {
           query = query.toLowerCase()
