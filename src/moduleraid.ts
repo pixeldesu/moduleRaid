@@ -1,13 +1,11 @@
 import {
   AnyFunction,
   ConstructorModuleTuple,
-  DefaultModuleLike,
-  ModuleLike,
-  ModuleList,
   ModuleRaidParameters,
   WebpackArgument,
-  WebpackRequire,
-  WebpackRequireFunction,
+  WebpackModule,
+  WebpackModuleList,
+  WebpackRequire
 } from './types'
 
 /**
@@ -91,7 +89,7 @@ export class ModuleRaid {
   /**
    * Storage for the modules we extracted from Webpack
    */
-  public modules: ModuleList = {}
+  public modules: WebpackModuleList = {}
 
   /**
    * Storage for the constructors we extracted from Webpack
