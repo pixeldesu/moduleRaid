@@ -342,7 +342,7 @@ export class ModuleRaid {
    * @returns a list of constructor/module tuples fitting the query
    */
   public findConstructor(
-    query: string | ((query: ModuleLike) => boolean)
+    query: string | ((query: WebpackModule) => boolean)
   ): ConstructorModuleTuple[] {
     const results: ConstructorModuleTuple[] = []
     const constructors = Object.keys(this.constructors)
@@ -359,9 +359,9 @@ export class ModuleRaid {
           query = query.toLowerCase()
 
           if (constructor.toString().toLowerCase().includes(query))
-            results.push([this.constructors[key], this.modules[key]])
+            results.push([this.constructors[key], this.modules[key].exports])
         } else if (typeof query === 'function') {
-          if (query(constructor)) results.push([this.constructors[key], this.modules[key]])
+          if (query(constructor)) results.push([this.constructors[key], this.modules[key].exports])
         }
       } catch (err) {
         this.log(
