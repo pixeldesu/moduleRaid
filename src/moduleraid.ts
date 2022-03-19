@@ -43,9 +43,9 @@ export class ModuleRaid {
       [0],
       [
         (_e: unknown, _t: unknown, i: WebpackRequire) => {
-          this.modules = i.c
+          this.modules = i.c!
           this.constructors = i.m as AnyFunction[]
-          this.get = i as unknown as WebpackRequireFunction
+          this.get = i
         },
       ],
     ],
@@ -53,9 +53,9 @@ export class ModuleRaid {
       [1e3],
       {
         [this.moduleID]: (_e: unknown, _t: unknown, i: WebpackRequire) => {
-          this.modules = i.c
+          this.modules = i.c!
           this.constructors = i.m as AnyFunction[]
-          this.get = i as unknown as WebpackRequireFunction
+          this.get = i
         },
       },
       [[this.moduleID]],
@@ -73,17 +73,17 @@ export class ModuleRaid {
       [this.moduleID],
       {},
       (e: WebpackRequire) => {
-        const mCac = e.m
+        const mCac = e.m!
         Object.keys(mCac).forEach((mod: string) => {
           try {
-            this.modules[mod] = (e as unknown as WebpackRequireFunction)(mod)
+            this.modules[mod] = e(mod)
           } catch (err) {
             this.log(
               `[arrayArguments/1] Failed to require(${mod}) with error:\n${err}\n${err.stack}`
             )
           }
         })
-        this.get = e as unknown as WebpackRequireFunction
+        this.get = e
       },
     ],
   ]
@@ -101,7 +101,7 @@ export class ModuleRaid {
   /**
    * Intermediary storage for __webpack_require__ if we were able to extract it
    */
-  public get: WebpackRequireFunction | null = null
+  public get?: WebpackRequire
 
   /**
    * moduleRaid constructor

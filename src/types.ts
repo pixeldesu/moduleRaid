@@ -65,21 +65,18 @@ export type WebpackArgument = [
 ]
 
 /**
- * Type describing the contents of the Webpack module cache
- * @internal
- */
-export type WebpackModuleCache = {
-  [key: string]: { exports: ModuleLike }
-}
-
-/**
- * Type describing the prototype contents of the __webpack_require__
+ * Type describing the __webpack_require__ function
  * @internal
  */
 export interface WebpackRequire {
-  c: WebpackModuleCache
-  m: AnyFunction[] | WebpackModuleCache
+  c?: WebpackModuleList
+  m?: AnyFunction[] | WebpackModuleList,
+  (key: string | number): WebpackCacheModule
 }
+
+/**
+ * @internal
+ */
 
 /**
  * Type describing the __webpack_require__ function
