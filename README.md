@@ -44,6 +44,13 @@ let results = mR.findModule('coolFeature')
 
 let constRes = mR.findConstructor('_internal')
 // => Array of fitting constructor/module tuples for the search query
+
+// after moduleRaid has been set up you can now listen for new chunks being loaded
+document.addEventListener('moduleraid:webpack-push', (e) => {
+  // e.detail contains the arguments push() was called with
+
+  // your code here...
+})
 ```
 
 For more in-depth documentation around what you can use of moduleRaid, you can visit the **[API Documentation](https://moduleraid.netlify.app/)**!
