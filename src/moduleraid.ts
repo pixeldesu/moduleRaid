@@ -10,8 +10,6 @@ import {
   WebpackRequireFunction,
 } from './types'
 
-declare function webpackJsonp(...args: WebpackArgument): ModuleLike
-
 /**
  * Main moduleRaid class
  */
@@ -175,7 +173,7 @@ export class ModuleRaid {
    * @internal
    */
   private fillModules(): void {
-    if (typeof webpackJsonp === 'function') {
+    if (window[this.entrypoint] === 'function') {
       this.functionArguments.forEach((argument, index) => {
         try {
           if (this.modules && Object.keys(this.modules).length > 0) return
@@ -190,7 +188,7 @@ export class ModuleRaid {
         try {
           if (this.modules && Object.keys(this.modules).length > 0) return
 
-          (window[this.entrypoint] as ModuleLike[]).push(argument)
+          window[this.entrypoint].push(argument)
         } catch (err) {
           this.log(
             `Pushing moduleRaid.arrayArguments[${index}] into ${this.entrypoint} failed:\n${err}\n${err.stack}`
