@@ -255,8 +255,8 @@ export class ModuleRaid {
    * @param query query to search the module list for
    * @return a list of modules fitting the query
    */
-  public findModule(query: string | ((query: ModuleLike) => boolean)): ModuleLike[] {
-    const results: ModuleLike[] = []
+  public findModule(query: string | ((query: WebpackModule) => boolean)): WebpackModule[] {
+    const results: WebpackModule[] = []
     const modules = Object.keys(this.modules)
 
     if (modules.length === 0) {
@@ -264,7 +264,7 @@ export class ModuleRaid {
     }
 
     modules.forEach((key: string) => {
-      const module = this.modules[key]
+      const module = this.modules[key].exports
 
       try {
         if (typeof query === 'string') {
@@ -272,14 +272,14 @@ export class ModuleRaid {
 
           switch (typeof module) {
             case 'string':
-              if (module.includes(query)) results.push(module)
+              if ((module as string).toLowerCase().includes(query)) results.push(module)
               break
             case 'function':
-              if (module.toString().toLowerCase().includes(query)) results.push(module)
+              if ((module as AnyFunction).toString().toLowerCase().includes(query)) results.push(module)
               break
             case 'object':
-              if (typeof (module as DefaultModuleLike).default === 'object') {
-                for (key in (module as DefaultModuleLike).default) {
+              if (typeof module.default === 'object') {
+                for (key in module.default) {
                   if (key.toLowerCase() === query) results.push(module)
                 }
               }
