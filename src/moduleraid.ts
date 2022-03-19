@@ -75,7 +75,7 @@ export class ModuleRaid {
         Object.keys(mCac).forEach((mod: string) => {
           try {
             this.modules[mod] = e(mod)
-          } catch (err) {
+          } catch (err: any) {
             this.log(
               `[arrayArguments/1] Failed to require(${mod}) with error:\n${err}\n${err.stack}`
             )
@@ -177,7 +177,7 @@ export class ModuleRaid {
           if (this.modules && Object.keys(this.modules).length > 0) return
 
           window[this.entrypoint](...argument)
-        } catch (err) {
+        } catch (err: any) {
           this.log(`moduleRaid.functionArguments[${index}] failed:\n${err}\n${err.stack}`)
         }
       })
@@ -187,7 +187,7 @@ export class ModuleRaid {
           if (this.modules && Object.keys(this.modules).length > 0) return
 
           window[this.entrypoint].push(argument)
-        } catch (err) {
+        } catch (err: any) {
           this.log(
             `Pushing moduleRaid.arrayArguments[${index}] into ${this.entrypoint} failed:\n${err}\n${err.stack}`
           )
@@ -207,7 +207,7 @@ export class ModuleRaid {
         try {
           this.modules[moduleIterator] = window[this.entrypoint]([], [], [moduleIterator])
           moduleIterator++
-        } catch (err) {
+        } catch (err: any) {
           moduleEnd = true
         }
       }
@@ -298,7 +298,7 @@ export class ModuleRaid {
             `findModule can only find via string and function, ${typeof query} was passed`
           )
         }
-      } catch (err) {
+      } catch (err: any) {
         this.log(
           `There was an error while searching through module '${key}':\n${err}\n${err.stack}`
         )
@@ -365,7 +365,7 @@ export class ModuleRaid {
         } else if (typeof query === 'function') {
           if (query(constructor)) results.push([this.constructors[key], this.modules[key].exports])
         }
-      } catch (err) {
+      } catch (err: any) {
         this.log(
           `There was an error while searching through constructor '${key}':\n${err}\n${err.stack}`
         )
