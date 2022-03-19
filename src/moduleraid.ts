@@ -222,11 +222,13 @@ export class ModuleRaid {
     const originalPush = window[this.entrypoint].push
 
     window[this.entrypoint].push = (...args: unknown[]) => {
+      const result = Reflect.apply(originalPush, window[this.entrypoint], args)
+
       document.dispatchEvent(
         new CustomEvent('moduleraid:webpack-push', { detail: args })
       );
   
-      return Reflect.apply(originalPush as Function, window[this.entrypoint], args)
+      return result
     }
   }
 
