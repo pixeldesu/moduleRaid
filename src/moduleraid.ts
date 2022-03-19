@@ -68,7 +68,7 @@ export class ModuleRaid {
    * @internal
    */
   private arrayArguments: WebpackArgument[] = [
-    this.functionArguments[1],
+    ...this.functionArguments,
     [
       [this.moduleID],
       {},
