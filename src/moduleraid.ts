@@ -119,7 +119,6 @@ export class ModuleRaid {
    *  - **opts:**
    *    - _entrypoint_: the Webpack entrypoint present on the global window object
    *    - _debug_: whether debug mode is enabled or not
-   *
    */
   constructor(opts?: ModuleRaidParameters | boolean) {
     let options = {
@@ -217,6 +216,18 @@ export class ModuleRaid {
   /**
    * Method to hook into `window[this.entrypoint].push` adding a listener for new
    * chunks being pushed into Webpack
+   * 
+   * @example
+   * You can listen for newly pushed packages using the `moduleraid:webpack-push` event
+   * on `document`
+   * 
+   * ```ts
+   * document.addEventListener('moduleraid:webpack-push', (e) => {
+   *   // e.detail contains the arguments push() was called with
+   *   console.log(e.detail)
+   * })
+   * ```
+   * @internal
    */
   private setupPushEvent() {
     const originalPush = window[this.entrypoint].push
