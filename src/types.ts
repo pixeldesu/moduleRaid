@@ -11,6 +11,11 @@ export interface ModuleRaidParameters {
    * Option enabling or disabling debug output
    */
   debug?: boolean
+
+  /**
+   * Option enabling strict mode (only defined entrypoint) or entrypoint guessing
+   */
+  strict?: boolean
 }
 
 /**

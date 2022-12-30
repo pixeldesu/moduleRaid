@@ -27,6 +27,11 @@ export class ModuleRaid {
   private debug: boolean
 
   /**
+   * Option enabling strict mode (only defined entrypoint) or entrypoint guessing
+   */
+  private strict: boolean
+
+  /**
    * A random generated module ID we use for injecting into Webpack
    */
   private moduleID: string = Math.random().toString(36).substring(7)
@@ -119,11 +124,13 @@ export class ModuleRaid {
    *  - **opts:**
    *    - _entrypoint_: the Webpack entrypoint present on the global window object
    *    - _debug_: whether debug mode is enabled or not
+   *    - _strict_: whether strict mode is enabled or not
    */
   constructor(opts?: ModuleRaidParameters | boolean) {
     let options = {
       entrypoint: 'webpackJsonp',
       debug: false,
+      strict: false,
     }
 
     if (typeof opts === 'object') {
@@ -135,7 +142,9 @@ export class ModuleRaid {
 
     this.entrypoint = options.entrypoint
     this.debug = options.debug
+    this.strict = options.strict
 
+    this.detectEntrypoint()
     this.fillModules()
     this.replaceGet()
     this.setupPushEvent()
@@ -241,6 +250,43 @@ export class ModuleRaid {
   
       return result
     }
+  }
+
+  /**
+   * Method to try autodetecting a Webpack JSONP entrypoint based on common naming
+   * 
+   * If the default entrypoint, or the entrypoint that's passed to the moduleRaid constructor
+   * already matches, the method exits early
+   * 
+   * If `options.strict` has been set in the constructor and the initial entrypoint cannot
+   * be found, this method will error, demanding a strictly set entrypoint
+   * @internal
+   */
+  private detectEntrypoint() {
+    if (window[this.entrypoint] != undefined) {
+      return
+    }
+
+    if (this.strict) {
+      throw Error(`Strict mode is enabled and entrypoint at window.${this.entrypoint} couldn't be found. Please specify the correct one!`)
+    }
+
+    let windowObjects = Object.keys(window);
+
+    windowObjects = windowObjects
+      .filter((object) => object.toLowerCase().includes('chunk') || object.toLowerCase().includes('webpack'))
+      .filter((object) => typeof window[object] === 'function' || Array.isArray(window[object]))
+
+    if (windowObjects.length > 1) {
+      throw Error(`Multiple possible endpoints have been detected, please create a new moduleRaid instance with a specific one:\n${windowObjects.join(', ')}`)
+    }
+
+    if (windowObjects.length === 0) {
+      throw Error('No Webpack JSONP entrypoints could be detected')
+    }
+
+    this.log(`Entrypoint has been detected at window.${windowObjects[0]} and set for injection`)
+    this.entrypoint = windowObjects[0]
   }
 
   /**
