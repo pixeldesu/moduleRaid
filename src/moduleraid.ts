@@ -170,7 +170,7 @@ export class ModuleRaid {
    * @internal
    */
   private fillModules(): void {
-    if (window[this.entrypoint] === 'function') {
+    if (typeof window[this.entrypoint] === 'function') {
       this.functionArguments.forEach((argument, index) => {
         try {
           if (this.modules && Object.keys(this.modules).length > 0) return
