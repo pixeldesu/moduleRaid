@@ -198,7 +198,7 @@ export class ModuleRaid {
       let moduleEnd = false
       let moduleIterator = 0
 
-      if (!window[this.entrypoint]([], [], [moduleIterator])) {
+      if (typeof window[this.entrypoint] != 'function' || !window[this.entrypoint]([], [], [moduleIterator])) {
         throw Error('Unknown Webpack structure')
       }
 
