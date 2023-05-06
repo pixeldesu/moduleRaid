@@ -321,7 +321,7 @@ export class ModuleRaid {
     }
 
     modules.forEach((key: string) => {
-      const module = this.modules[key].exports
+      const module = this.modules[key.toString()]
 
       if (module === undefined) return
       
@@ -418,9 +418,9 @@ export class ModuleRaid {
           query = query.toLowerCase()
 
           if (constructor.toString().toLowerCase().includes(query))
-            results.push([this.constructors[key], this.modules[key].exports])
+            results.push([this.constructors[key], this.modules[key]])
         } else if (typeof query === 'function') {
-          if (query(constructor)) results.push([this.constructors[key], this.modules[key].exports])
+          if (query(constructor)) results.push([this.constructors[key], this.modules[key]])
         }
       } catch (err: any) {
         this.log(
