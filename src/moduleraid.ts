@@ -290,6 +290,37 @@ export class ModuleRaid {
   }
 
   /**
+   * Recursive object-search function for modules
+   * 
+   * @param object the object to search through
+   * @param query the query the object keys/values are searched for
+   * @returns boolean state of `object` containing `query` somewhere in it
+   * @internal
+   */
+  private searchObject(object: any, query: string): boolean {
+    for (const key in object) {
+      const value = object[key]
+      const lowerCaseQuery = query.toLowerCase()
+      
+      if (typeof value != 'object') {
+        const lowerCaseKey = key.toString().toLowerCase()
+
+        if (lowerCaseKey.includes(lowerCaseQuery)) return true
+
+        if (typeof value != 'object') {
+          const lowerCaseValue = value.toString().toLowerCase()
+
+          if (lowerCaseValue.includes(lowerCaseQuery)) return true
+        } else {
+          if (this.searchObject(value, query)) return true
+        }
+      }
+    }
+
+    return false
+  }
+
+  /**
    * Method to search through the module object, searching for the fitting content
    * if a string is supplied
    *
@@ -337,15 +368,7 @@ export class ModuleRaid {
               if ((module as AnyFunction).toString().toLowerCase().includes(query)) results.push(module)
               break
             case 'object':
-              if (typeof module.default === 'object') {
-                for (key in module.default) {
-                  if (key.toLowerCase() === query) results.push(module)
-                }
-              }
-
-              for (key in module) {
-                if (key.toLowerCase() === query) results.push(module)
-              }
+              if (this.searchObject(module, query)) results.push(module)
               break
           }
         } else if (typeof query === 'function') {
